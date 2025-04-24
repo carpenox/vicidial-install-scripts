@@ -12,7 +12,7 @@ For those of you who don't know who I am, I am carpenox from the ViciDial forums
 # Centos, Rocky and AlmaLinux Vicidial Install pre_requisites 
 # I have created a faster auto installer for Alma and Rocky 9 that will also install the dynamic portal and the CyburPhone
 
-## Copy & Paste the part blow:
+## Copy & Paste the part below:
 
 ```
 # Install english language pack
