@@ -7,5 +7,5 @@ certbot renew
 service firewalld restart
 mv /etc/httpd/conf.d/viciportal-ssl.conf. /etc/httpd/conf.d/viciportal-ssl.conf
 domain=$(basename /etc/letsencrypt/renewal/*.conf | sed 's/\.conf$//')
-cp "/etc/letsencrypt/live/${domain}-*" "/etc/letsencrypt/live/${domain}" -r
+#cp "/etc/letsencrypt/live/${domain}-*" "/etc/letsencrypt/live/${domain}" -r
 systemctl reload httpd
