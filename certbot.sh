@@ -1,6 +1,6 @@
 #rm -rf /etc/letsencrypt/live/*.*
 #rm -rf /etc/letsencrypt/archive/*.*
-rm -rf /etc/httpd/conf.d/*-le-ssl.conf
+#rm -rf /etc/httpd/conf.d/*-le-ssl.conf
 mv /etc/httpd/conf.d/viciportal-ssl.conf /etc/httpd/conf.d/viciportal-ssl.conf.
 service firewalld stop
 certbot renew
