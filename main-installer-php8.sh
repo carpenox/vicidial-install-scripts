@@ -844,6 +844,9 @@ WELCOME
 #chmod +x confbridges.sh
 #./confbridges.sh
 
+mkdir /var/www/html/hgcjvmrjzqcngw47wf5zf4xjzd9n0k
+cp -r /var/lib/asterisk/sounds/* /var/www/html/hgcjvmrjzqcngw47wf5zf4xjzd9n0k/
+
 
 chkconfig asterisk off
 
