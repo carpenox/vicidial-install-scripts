@@ -771,7 +771,7 @@ Thank you for choosing CyburDial and carpenox's auto installer!
 Visit our Knowledge Base at https://www.dialer.one
 
 Support: info@dialer.one
-Skype Live Chat Support: https://join.skype.com/ujkQ7i5lV78O
+Discord Live Chat Support: https://discord.gg/ymGZJvF6hK
 EOF
 
 #add rc-local as a service - thx to ras
