@@ -807,7 +807,7 @@ Thank you for choosing CyburDial and carpenox's auto installer!
 Visit our Knowledge Base at https://www.dialer.one
 
 Support: info@dialer.one
-Skype Live Chat Support: https://discord.gg/ymGZJvF6hK
+Discord Live Chat Support: https://discord.gg/ymGZJvF6hK
 EOF
 
 ## Remove debug kernel
