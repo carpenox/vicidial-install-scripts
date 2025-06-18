@@ -4,7 +4,7 @@ For those of you who don't know who I am, I am carpenox from the ViciDial forums
 
 # www.dialer.one for our full knowledge base
 
-# Need help? Hit me up on Skype: live:carpenox_3
+# Need help? Join the Discord: https://discord.gg/ymGZJvF6hK
 # Have I helped you? Please feel free to donate here: https://www.paypal.me/TheDialerOne
 
 
