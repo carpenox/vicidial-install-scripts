@@ -455,6 +455,10 @@ perl install.pl --no-prompt
 #Install Crontab
 cat <<CRONTAB>> /root/crontab-file
 
+
+### Change dialing to timezones based on zip or postal code (uncomment)
+#5 * * * * /usr/bin/mysql -e "use asterisk; update vicidal_lists SET time_zone_setting ='POSTAL_CODE'"
+
 ###Audio Sync hourly
 * 1 * * * /usr/share/astguiclient/ADMIN_audio_store_sync.pl --upload --quiet
 
