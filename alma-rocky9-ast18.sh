@@ -26,7 +26,7 @@ yum in -y php-opcache libss7 mariadb-devel libss7* libopen*
 yum in -y initscripts
 yum copr enable irontec/sngrep -y
 dnf install sngrep -y
-yum install php-mysqli
+yum install php-mysqli -y
 
 
 
