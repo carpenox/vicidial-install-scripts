@@ -55,7 +55,7 @@ yum in -y initscripts pv python3-pip
 pip install mysql-connector-python
 yum copr enable irontec/sngrep -y
 dnf install sngrep bind-utils -y
-yum install php-mysqli
+yum install php-mysqli -y
 
 
 sudo yum install -y kernel-devel-$(uname -r) kernel-headers-$(uname -r)
