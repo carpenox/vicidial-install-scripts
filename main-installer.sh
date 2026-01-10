@@ -51,7 +51,7 @@ yum in -y newt-devel libxml2-devel kernel-devel sqlite-devel libuuid-devel sox s
 sleep 2
 yum in -y php-opcache libss7 mariadb-devel libss7* libopen*
 sleep 1
-yum in -y initscripts pv python3-pip
+yum in -y initscripts pv python3-pip firewalld
 pip install mysql-connector-python
 yum copr enable irontec/sngrep -y
 dnf install sngrep bind-utils -y
