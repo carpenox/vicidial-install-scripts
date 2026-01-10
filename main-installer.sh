@@ -52,6 +52,8 @@ sleep 2
 yum in -y php-opcache libss7 mariadb-devel libss7* libopen*
 sleep 1
 yum in -y initscripts pv python3-pip firewalld
+sudo dnf install firewalld -y
+sudo systemctl enable --now firewalld
 pip install mysql-connector-python
 yum copr enable irontec/sngrep -y
 dnf install sngrep bind-utils -y
