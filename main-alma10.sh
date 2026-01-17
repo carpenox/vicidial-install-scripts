@@ -920,6 +920,9 @@ cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcar
 cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
 systemctl restart cockpit.socket
 
+echo "d /run/screen 1777 root root -" > /etc/tmpfiles.d/screen.conf
+systemd-tmpfiles --create /etc/tmpfiles.d/screen.conf
+
 read -p 'Press Enter to Reboot: '
 
 echo "Restarting AlmaLinux"
