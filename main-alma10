@@ -40,6 +40,8 @@ dnf module enable php:remi-7.4 -y
 dnf module enable mariadb:10.5 -y
 
 dnf -y install dnf-plugins-core
+dnf groupinstall "Development Tools" -y
+dnf install perl perl-core perl-devel perl-ExtUtils-MakeMaker perl-ExtUtils-Manifest perl-CPAN -y
 
 yum install -y php screen php-mcrypt subversion php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-opcache -y 
 sleep 2
