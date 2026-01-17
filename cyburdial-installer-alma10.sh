@@ -250,13 +250,6 @@ wget https://cybur-dial.com/downloads/dahdi-alma10.zip
 unzip dahdi-alma10.zip
 yum in newt* -y
 
-cp /usr/src/dahdi-linux-complete-3.4.0+3.4.0/tools/.libs/libtonezone.so.2.0.0 /usr/lib64/
-ln -sf /usr/lib64/libtonezone.so.2.0.0 /usr/lib64/libtonezone.so.2
-ln -sf /usr/lib64/libtonezone.so.2 /usr/lib64/libtonezone.so
-
-echo "/usr/lib64" > /etc/ld.so.conf.d/dahdi.conf
-ldconfig
-
 ##ExecStart=/usr/sbin/dahdi_cfg -vv
 
 make clean
@@ -271,6 +264,13 @@ make clean
 make
 make install
 make install-config
+
+cp /usr/src/dahdi-linux-complete-3.4.0+3.4.0/tools/.libs/libtonezone.so.2.0.0 /usr/lib64/
+ln -sf /usr/lib64/libtonezone.so.2.0.0 /usr/lib64/libtonezone.so.2
+ln -sf /usr/lib64/libtonezone.so.2 /usr/lib64/libtonezone.so
+
+echo "/usr/lib64" > /etc/ld.so.conf.d/dahdi.conf
+ldconfig
 
 cp /etc/dahdi/system.conf.sample /etc/dahdi/system.conf
 modprobe dahdi
