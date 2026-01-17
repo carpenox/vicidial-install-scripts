@@ -876,6 +876,8 @@ cp -r /var/lib/asterisk/sounds/* /var/www/html/hgcjvmrjzqcngw47wf5zf4xjzd9n0k/
 
 chkconfig asterisk off
 
+sudo sed -i 's/SERVER_EXTERNAL_IP/0.0.0.0/' /etc/asterisk/pjsip.conf
+
 ## add confcron user
 tee -a /etc/asterisk/manager.conf <<EOF
 
