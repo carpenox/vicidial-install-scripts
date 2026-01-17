@@ -30,7 +30,8 @@ read
 export LC_ALL=C
 
 
-yum groupinstall "Development Tools" -y
+dnf groupinstall "Development Tools" -y
+dnf install perl perl-core perl-devel perl-ExtUtils-MakeMaker perl-ExtUtils-Manifest perl-CPAN -y
 
 yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 yum -y install yum-utils
@@ -40,8 +41,7 @@ dnf module enable php:remi-7.4 -y
 dnf module enable mariadb:10.5 -y
 
 dnf -y install dnf-plugins-core
-dnf groupinstall "Development Tools" -y
-dnf install perl perl-core perl-devel perl-ExtUtils-MakeMaker perl-ExtUtils-Manifest perl-CPAN -y
+
 
 yum install -y php screen php-mcrypt subversion php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-opcache -y 
 sleep 2
@@ -60,6 +60,7 @@ pip install mysql-connector-python
 yum copr enable irontec/sngrep -y
 dnf install sngrep bind-utils -y
 yum install php-mysqli -y
+dnf install glibc-headers glibc-devel -y
 
 
 sudo yum install -y kernel-devel-$(uname -r) kernel-headers-$(uname -r)
