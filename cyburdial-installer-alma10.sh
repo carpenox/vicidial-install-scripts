@@ -996,8 +996,8 @@ service firewalld stop
 service firewalld start
 systemctl enable firewalld
 
-cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.cert
-cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
+cp /etc/letsencrypt/live/"$hostname"/fullchain.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.cert
+cp /etc/letsencrypt/live/"$hostname"/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
 systemctl restart cockpit.socket
 
 # Next: optionally update any other templates you know the exact paths of:
