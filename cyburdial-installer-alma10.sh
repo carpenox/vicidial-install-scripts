@@ -457,9 +457,6 @@ mysql -u root -e "use asterisk; INSERT INTO vicidial_confbridges VALUES (9600000
 
 echo "Populate AREA CODES"
 /usr/share/astguiclient/ADMIN_area_code_populate.pl
-echo "Replace OLD IP. You need to Enter your Current IP here"
-
-/usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=10.10.10.15 --server_ip=$ip_address --auto
 
 
 perl install.pl --no-prompt
@@ -920,7 +917,7 @@ chown -R apache:apache /var/spool/asterisk/
 ## sed -i s/DOMAINNAME/"$DOMAINNAME"/g /var/www/vhosts/dynportal/inc/defaults.inc.php
 ## sed -i s/DOMAINNAME/"$DOMAINNAME"/g /home/viciportal-ssl.conf
 
-mysql -e "use asterisk; update system_settings set active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname';"
+## mysql -e "use asterisk; update system_settings set active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname';"
 
 cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.cert
 cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
@@ -935,7 +932,7 @@ systemd-tmpfiles --create /etc/tmpfiles.d/screen.conf
 # Usage: run interactively inside your installer
 
 # detect primary server IP (robust)
-ip_address="$(hostname -I 2>/dev/null | awk '{print $1}')"
+ip_address=$ip_address
 if [ -z "$ip_address" ]; then
   ip_address="$(ip route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++){if($i=="src"){print $(i+1); exit}}}')" 
 fi
@@ -981,7 +978,7 @@ if echo "$want_db" | grep -iq '^y'; then
   # standard-db.sh uses --old-server_ip=149.28.96.244 — we update to detected IP and run --auto
   if [ -x /usr/share/astguiclient/ADMIN_update_server_ip.pl ]; then
     echo "Updating server IP in astguiclient DB files..."
-    /usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=149.28.96.244 --server_ip="$ip_address" --auto || \
+      /usr/share/astguiclient/ADMIN_update_server_ip.pl --old-server_ip=149.28.96.244 --server_ip=$ip_address --auto || \
       echo "ADMIN_update_server_ip.pl failed or returned non-zero."
   else
     echo "WARNING: /usr/share/astguiclient/ADMIN_update_server_ip.pl not found; skipping automatic DB IP update."
@@ -1046,7 +1043,7 @@ EOF
   echo "Applying Vicidial DB updates for webphone_url, sounds_web_server and active_voicemail_server (requires mysql client + root access)."
   if command -v mysql >/dev/null 2>&1; then
     # Attempt with no-password mysql first; if that fails, it will prompt or fail silently
-    mysql -e "USE asterisk; UPDATE system_settings SET active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname' ;" 2>/dev/null || \
+    mysql -e "USE asterisk; UPDATE system_settings SET active_voicemail_server=$ip_address, webphone_url='../CyburPhone/cyburphone.php', sounds_web_server='https://$hostname' ;" 2>/dev/null || \
     echo "Could not update MySQL (authentication may be required). Run the following manually as a user with DB privileges:"
     echo "mysql -u root -p -e \"USE asterisk; UPDATE system_settings SET active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname';\""
   else
@@ -1058,6 +1055,8 @@ EOF
 else
   echo "Skipping standard DB install."
 fi
+
+
 
 # Next: optionally update any other templates you know the exact paths of:
 # Example:
