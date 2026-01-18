@@ -896,15 +896,6 @@ eventfilter=Event: Meetme
 eventfilter=Event: Confbridge
 EOF
 
-yum in certbot -y
-systemctl enable certbot-renew.timer
-systemctl start certbot-renew.timer
-cd /usr/src/vicidial-install-scripts
-chmod +x vicidial-enable-webrtc.sh
-service firewalld stop
-./vicidial-enable-webrtc.sh
-service firewalld start
-systemctl enable firewalld
 
 firewall-cmd --add-port=10000-20000/udp --permanent
 firewall-cmd --add-service=http --permanent --zone=trusted
@@ -1001,7 +992,15 @@ else
   echo "Skipping standard DB install."
 fi
 
-
+yum in certbot -y
+systemctl enable certbot-renew.timer
+systemctl start certbot-renew.timer
+cd /usr/src/vicidial-install-scripts
+chmod +x vicidial-enable-webrtc.sh
+service firewalld stop
+./vicidial-enable-webrtc.sh
+service firewalld start
+systemctl enable firewalld
 
 # Next: optionally update any other templates you know the exact paths of:
 # Example:
