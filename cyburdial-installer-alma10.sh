@@ -910,14 +910,8 @@ chown -R apache:apache /var/spool/asterisk/
 
 ## mysql -e "use asterisk; update system_settings set active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname';"
 
-cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.cert
-cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
-systemctl restart cockpit.socket
-
 echo "d /run/screen 1777 root root -" > /etc/tmpfiles.d/screen.conf
 systemd-tmpfiles --create /etc/tmpfiles.d/screen.conf
-
-
 
 # Standard DB installer and placeholder-fix helper
 # Usage: run interactively inside your installer
@@ -1001,6 +995,10 @@ service firewalld stop
 ./vicidial-enable-webrtc.sh
 service firewalld start
 systemctl enable firewalld
+
+cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.cert
+cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
+systemctl restart cockpit.socket
 
 # Next: optionally update any other templates you know the exact paths of:
 # Example:
