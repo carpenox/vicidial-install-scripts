@@ -984,67 +984,12 @@ if echo "$want_db" | grep -iq '^y'; then
     echo "WARNING: /usr/share/astguiclient/ADMIN_update_server_ip.pl not found; skipping automatic DB IP update."
   fi
 
-  # also ensure /etc/astguiclient.conf has the correct server IP (safe replace, if file exists)
-  if [ -f /etc/astguiclient.conf ]; then
-    cp -a /etc/astguiclient.conf /etc/astguiclient.conf.bak."$(date +%s)"
-    sed -i "s/SERVERIP/$ip_address/g" /etc/astguiclient.conf || true
-    echo "/etc/astguiclient.conf updated (backup created)."
-  fi
 
-  # Generic replace of placeholders across likely locations (back up each file first)
-  echo "Searching for common placeholders and replacing with detected IP/hostname..."
-  SEARCH_ROOTS="/var/www /etc /usr/src /usr/share /opt /root /home"
-  # build list of placeholder patterns to replace
-  # Left-hand side is literal string to find; right-hand side is replacement using shell expansion
-  replacements() {
-    # format: placeholder|replacement
-    cat <<-REPL
-SERVERIP|$ip_address
-SERVER_EXTERNAL_IP|$ip_address
-HOSTNAME_PLACEHOLDER|$hostname
-WEBSOCKET_HOST|$hostname
-WEBPHONE_HOST|$hostname
-WEBPHONE_URL|https://$hostname/CyburPhone/cyburphone.php
-SOUNDS_WEB_SERVER|https://$hostname
-REPL
-  }
-
-  # find files and replace
-  while IFS="|" read -r placeholder replacement; do
-    # avoid empty lines
-    [ -z "$placeholder" ] && continue
-
-    echo "Replacing occurrences of '$placeholder' -> '$replacement'"
-
-    # locate candidate files (text files) that contain the placeholder
-    files="$(grep -RIl --exclude-dir=.git --exclude='*.bak.*' --exclude='*.png' --exclude='*.jpg' --exclude='*.so' -e "$placeholder" $SEARCH_ROOTS 2>/dev/null || true)"
-    if [ -z "$files" ]; then
-      echo "  No files found containing '$placeholder'."
-      continue
-    fi
-
-    # iterate and edit with backup
-    echo "$files" | while IFS= read -r f; do
-      # safety: only touch regular files
-      [ -f "$f" ] || continue
-      # create backup once (timestamp)
-      if [ ! -f "${f}.bak.std_replace" ]; then
-        cp -a "$f" "${f}.bak.std_replace"
-      fi
-      # use perl for safe in-place replacement (handles special chars)
-      perl -0777 -pe "s/\Q$placeholder\E/$replacement/g" -i "$f" || sed -i "s|$placeholder|$replacement|g" "$f" || true
-      echo "  Updated: $f"
-    done
-  done <<-EOF
-$(replacements)
-EOF
 
   # Update Vicidial system_settings table for webphone_url, sounds_web_server, active_voicemail_server
   echo "Applying Vicidial DB updates for webphone_url, sounds_web_server and active_voicemail_server (requires mysql client + root access)."
   if command -v mysql >/dev/null 2>&1; then
     # Attempt with no-password mysql first; if that fails, it will prompt or fail silently
-    mysql -e "USE asterisk; UPDATE system_settings SET active_voicemail_server=$ip_address, webphone_url='../CyburPhone/cyburphone.php', sounds_web_server='https://$hostname' ;" 2>/dev/null || \
-    echo "Could not update MySQL (authentication may be required). Run the following manually as a user with DB privileges:"
     echo "mysql -u root -p -e \"USE asterisk; UPDATE system_settings SET active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname';\""
   else
     echo "mysql client not found; SKIPPING Vicidial DB updates. Run the command shown above manually once mysql client available."
