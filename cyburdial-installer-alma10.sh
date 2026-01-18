@@ -32,6 +32,8 @@ export LC_ALL=C
 
 dnf groupinstall "Development Tools" -y
 dnf install perl perl-core perl-devel perl-ExtUtils-MakeMaker perl-ExtUtils-Manifest perl-CPAN -y
+dnf install perl-devel perl-ExtUtils-MakeMaker perl-ExtUtils-Embed -y
+dnf install libX11-devel libXext-devel libXft-devel libXpm-devel libXrender-devel libjpeg-devel libpng-devel freetype-devel -y
 
 yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 yum -y install yum-utils
@@ -40,8 +42,17 @@ dnf install https://rpms.remirepo.net/enterprise/remi-release-10.rpm -y
 dnf module enable php:remi-7.4 -y
 dnf module enable mariadb:10.5 -y
 
-dnf -y install dnf-plugins-core
+cat >/etc/yum.repos.d/sngrep.repo <<'EOF'
+[irontec]
+name=Irontec RPMs repository
+baseurl=http://packages.irontec.com/centos/$releasever/$basearch/
+gpgcheck=0
+enabled=1
+EOF
 
+dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm -y
+
+dnf -y install dnf-plugins-core
 
 yum install -y php screen php-mcrypt subversion php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-opcache -y 
 sleep 2
@@ -70,8 +81,8 @@ dnf config-manager --set-enabled crb
 yum install libsrtp-devel -y
 
 ### Install cockpit
-yum -y install cockpit cockpit-storaged cockpit-navigator
-sed -i s/root/"#root"/g /etc/cockpit/disallowed-users
+dnf install cockpit cockpit-storaged cockpit-networkmanager cockpit-packagekit -y
+sed -i s/root/$hostname/g /etc/cockpit/disallowed-users
 systemctl enable cockpit.socket
 
 sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -714,6 +725,7 @@ firewall-offline-cmd --add-port=446/tcp --zone=public
 cd /usr/src/astguiclient/trunk/extras/ip_relay/
 unzip ip_relay_1.1.112705.zip
 cd ip_relay_1.1/src/unix/
+sed -i '1i #include <unistd.h>' ../lib_ip_relay.c
 make
 cp ip_relay ip_relay2
 mv -f ip_relay /usr/bin/
@@ -996,8 +1008,8 @@ service firewalld stop
 service firewalld start
 systemctl enable firewalld
 
-cp /etc/letsencrypt/live/"$hostname"/fullchain.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.cert
-cp /etc/letsencrypt/live/"$hostname"/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
+cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.cert
+cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
 systemctl restart cockpit.socket
 
 # Next: optionally update any other templates you know the exact paths of:
