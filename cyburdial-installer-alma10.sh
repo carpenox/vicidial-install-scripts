@@ -557,8 +557,8 @@ cat <<CRONTAB>> /root/crontab-file
 ### Dialer Inventory Report
 1 7 * * * /usr/share/astguiclient/AST_dialer_inventory_snapshot.pl -q --override-24hours
 
-### inbound email parser
-* * * * * /usr/share/astguiclient/AST_inbound_email_parser.pl
+### inbound email parser - not enabled by default
+#* * * * * /usr/share/astguiclient/AST_inbound_email_parser.pl
 
 ### Daily Reboot
 #30 6 * * * /sbin/reboot
