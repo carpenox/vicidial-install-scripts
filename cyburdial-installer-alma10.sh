@@ -1013,7 +1013,7 @@ mysql -e "use asterisk; update servers set external_server_ip='$ip_address';"
 
 echo "Add DOMAINAME servers recording_web_link"
 echo "%%%%%%%%%%%%%%%This Wont work if you SET root Password%%%%%%%%%%%%%%%"
-mysql -e "use asterisk; update servers set recording_web_link='$hostname';"
+mysql -e "use asterisk; update servers set 	alt_server_ip='$hostname';"
 
 echo "Add DOMAINAME system_settings webphone_url"
 echo "%%%%%%%%%%%%%%%This Wont work if you SET root Password%%%%%%%%%%%%%%%"
