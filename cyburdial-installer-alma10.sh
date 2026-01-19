@@ -1005,6 +1005,20 @@ cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcar
 cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
 systemctl restart cockpit.socket
 
+mysql -e "use asterisk; update servers set web_socket_url='wss://$hostname:8089/ws';"
+
+echo "Add IP servers external_server_ip"
+echo "%%%%%%%%%%%%%%%This Wont work if you SET root Password%%%%%%%%%%%%%%%"
+mysql -e "use asterisk; update servers set external_server_ip='$ip_address';"
+
+echo "Add DOMAINAME servers recording_web_link"
+echo "%%%%%%%%%%%%%%%This Wont work if you SET root Password%%%%%%%%%%%%%%%"
+mysql -e "use asterisk; update servers set recording_web_link='$hostname';"
+
+echo "Add DOMAINAME system_settings webphone_url"
+echo "%%%%%%%%%%%%%%%This Wont work if you SET root Password%%%%%%%%%%%%%%%"
+mysql -e "use asterisk; update system_settings set webphone_url='https://$hostname/CyburPhone/cyburphone.php';"
+
 # Next: optionally update any other templates you know the exact paths of:
 # Example:
 # sed -i.bak "s/OLDHOSTNAME/$hostname/g" /var/www/html/CyburPhone/templates/webrtc_template.php
