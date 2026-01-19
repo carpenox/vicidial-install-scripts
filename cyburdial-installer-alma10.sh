@@ -932,7 +932,7 @@ if [ -z "$ip_address" ]; then
 fi
 
 # detect hostname (short)
-hostname="$(hostname -s 2>/dev/null)"
+hostname="$(hostname 2>/dev/null)"
 if [ -z "$hostname" ]; then
   echo "Could not detect hostname automatically. Please enter the hostname:"
   read -r hostname
