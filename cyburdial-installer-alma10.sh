@@ -1017,7 +1017,8 @@ mysql -e "use asterisk; update servers set recording_web_link='$hostname';"
 
 echo "Add DOMAINAME system_settings webphone_url"
 echo "%%%%%%%%%%%%%%%This Wont work if you SET root Password%%%%%%%%%%%%%%%"
-mysql -e "use asterisk; update system_settings set webphone_url='https://$hostname/CyburPhone/cyburphone.php';"
+
+mysql -e "use asterisk; UPDATE server_settings SET active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname';"
 
 # Next: optionally update any other templates you know the exact paths of:
 # Example:
