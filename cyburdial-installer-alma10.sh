@@ -407,7 +407,7 @@ VARDB_port => 3306
 #  9 - Timeclock auto logout
 #  E - Email processor, (If multi-server system, this must only be on one server)
 #  S - SIP Logger (Patched Asterisk 13 required)
-VARactive_keepalives => 12345689EC
+VARactive_keepalives => 12345689C
 
 # Asterisk version VICIDIAL is installed for
 VARasterisk_version => 18.X
