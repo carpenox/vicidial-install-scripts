@@ -43,7 +43,7 @@ dnf module enable php:remi-7.4 -y
 dnf module enable mariadb:10.5 -y
 
 
-dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm -y
+#dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm -y
 
 dnf -y install dnf-plugins-core
 
