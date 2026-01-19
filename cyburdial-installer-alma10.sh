@@ -42,13 +42,6 @@ dnf install https://rpms.remirepo.net/enterprise/remi-release-10.rpm -y
 dnf module enable php:remi-7.4 -y
 dnf module enable mariadb:10.5 -y
 
-cat >/etc/yum.repos.d/sngrep.repo <<'EOF'
-[irontec]
-name=Irontec RPMs repository
-baseurl=http://packages.irontec.com/centos/$releasever/$basearch/
-gpgcheck=0
-enabled=1
-EOF
 
 dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm -y
 
