@@ -1001,6 +1001,25 @@ service firewalld stop
 service firewalld start
 systemctl enable firewalld
 
+rm -rf /etc/firewalld/zones/PUBLIC.xml
+firewall-cmd --zone=external --add-port=5060/udp --permanent
+firewall-cmd --zone=external --add-port=5060/tcp --permanent
+firewall-cmd --zone=external --add-port=5061/tcp --permanent   
+firewall-cmd --zone=external --add-service=https --permanent
+firewall-cmd --zone=external --add-service=http --permanent
+firewall-cmd --zone=public --add-port=10000-20000/udp --permanent
+firewall-cmd --zone=public --add-port=8089/tcp --permanent
+ 
+firewall-cmd --zone=trusted --remove-source=ipset:dynamic --permanent
+firewall-cmd --zone=trusted --remove-source=ipset:dynamiclist --permanent
+firewall-cmd --zone=trusted --remove-source=ipset:whiteips --permanent
+firewall-cmd --zone=external --add-source=ipset:dynamic --permanent
+firewall-cmd --zone=external --add-source=ipset:dynamiclist --permanent
+firewall-cmd --zone=external --add-source=ipset:whiteips --permanent
+ 
+ 
+firewall-cmd --reload
+
 cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.cert
 cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
 systemctl restart cockpit.socket
