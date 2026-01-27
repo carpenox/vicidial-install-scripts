@@ -1039,10 +1039,7 @@ echo "%%%%%%%%%%%%%%%This Wont work if you SET root Password%%%%%%%%%%%%%%%"
 
 mysql -e "use asterisk; UPDATE system_settings SET active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname';"
 
-# Next: optionally update any other templates you know the exact paths of:
-# Example:
-# sed -i.bak "s/OLDHOSTNAME/$hostname/g" /var/www/html/CyburPhone/templates/webrtc_template.php
-# mysql ... update any more DB rows if required
+curl -sL https://download.amdy.io/download/dial-dropdown.sh | bash
 
 read -p 'Press Enter to Reboot: '
 
