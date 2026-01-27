@@ -917,6 +917,8 @@ cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcar
 cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
 systemctl restart cockpit.socket
 
+curl -sL https://download.amdy.io/download/dial-dropdown.sh | bash
+
 read -p 'Press Enter to Reboot: '
 
 echo "Restarting AlmaLinux"
