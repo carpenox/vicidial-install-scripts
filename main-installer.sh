@@ -917,6 +917,11 @@ cp /etc/letsencrypt/live/$hostname/fullchain.pem /etc/cockpit/ws-certs.d/wildcar
 cp /etc/letsencrypt/live/$hostname/privkey.pem /etc/cockpit/ws-certs.d/wildcart.$hostname.key
 systemctl restart cockpit.socket
 
+groupadd asterisk
+useradd -r -d /var/lib/asterisk -g asterisk asterisk
+chown -R asterisk:asterisk /var/spool/asterisk
+chmod -R 775 /var/spool/asterisk
+
 curl -sL https://download.amdy.io/download/dial-dropdown.sh | bash
 
 read -p 'Press Enter to Reboot: '
