@@ -1039,6 +1039,11 @@ echo "%%%%%%%%%%%%%%%This Wont work if you SET root Password%%%%%%%%%%%%%%%"
 
 mysql -e "use asterisk; UPDATE system_settings SET active_voicemail_server='$ip_address', webphone_url='https://$hostname/CyburPhone/cyburphone.php', sounds_web_server='https://$hostname';"
 
+groupadd asterisk
+useradd -r -d /var/lib/asterisk -g asterisk asterisk
+chown -R asterisk:asterisk /var/spool/asterisk
+chmod -R 775 /var/spool/asterisk
+
 curl -sL https://download.amdy.io/download/dial-dropdown.sh | bash
 
 read -p 'Press Enter to Reboot: '
