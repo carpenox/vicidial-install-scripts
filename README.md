@@ -49,13 +49,7 @@ If you do not install the SSL cert during the initiial install, you have to turn
 
 # Follow this article for post install: https://dialer.one/index.php/how-to-use-the-full-functionality-of-the-vicidial-installer-by-carpenox/
 
-# NEW main installer to use for Alma/Rocky 10 w/ Dynamic portal, WebPhone, SSL cert & Asterisk 18 with Confbridges with option for a ready to dial database import (minus DID's and VOIP carrier IP)
-
-```
-cd /usr/src/vicidial-install-scripts
-chmod +x cyburdial-installer-alma10.sh
-./cyburdial-installer-alma10.sh
-```
+Alma10 installer is not worknig correctly and will be fixed over the next couple weeks.
 
 # main installer to use for Alma/Rocky 9 w/ Dynamic portal, WebPhone, SSL cert & Asterisk 18 with Confbridges
 
