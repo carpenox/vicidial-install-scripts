@@ -49,7 +49,7 @@ If you do not install the SSL cert during the initiial install, you have to turn
 
 # Follow this article for post install: https://dialer.one/index.php/how-to-use-the-full-functionality-of-the-vicidial-installer-by-carpenox/
 
-Alma10 installer is not worknig correctly and will be fixed over the next couple weeks.
+## Alma10 installer is not working correctly and will be fixed over the next couple weeks.
 
 # main installer to use for Alma/Rocky 9 w/ Dynamic portal, WebPhone, SSL cert & Asterisk 18 with Confbridges
 
