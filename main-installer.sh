@@ -238,7 +238,7 @@ ldconfig
 echo "Install Dahdi"
 ln -sf /usr/lib/modules/$(uname -r)/vmlinux.xz /boot/
 cd /usr/include
-wget https://dialer.one/newt.h
+cp /usr/src/vicidial-install-scripts/newt.h .
 
 cd /usr/src/
 mkdir dahdi-linux-complete-3.4.0+3.4.0
