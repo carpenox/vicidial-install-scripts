@@ -672,15 +672,10 @@ chown -R apache:apache CyburPhone
 
 ##Install Dynportal
 yum install -y firewalld
-cd /home
-wget https://dialer.one/dynportal.zip --no-check-certificate
-wget https://dialer.one/firewall.zip --no-check-certificate
-wget https://dialer.one/aggregate --no-check-certificate
-wget https://dialer.one/VB-firewall --no-check-certificate
 
 mkdir -p /var/www/vhosts/dynportal
-mv /home/dynportal.zip /var/www/vhosts/dynportal/
-mv /home/firewall.zip /etc/firewalld/
+mv /usr/src/vicidial-install-scripts/dynportal.zip /var/www/vhosts/dynportal/
+mv /usr/src/vicidial-install-scripts/firewall.zip /etc/firewalld/
 cd /var/www/vhosts/dynportal/
 unzip dynportal.zip
 chmod -R 755 *
@@ -693,14 +688,10 @@ cd zones/
 rm -rf public.xml trusted.xml
 cd /etc/firewalld/
 mv -bf public.xml trusted.xml /etc/firewalld/zones/
-mv /home/aggregate /usr/bin/
+mv /usr/src/vicidial-install-scripts/aggregate /usr/bin/
 chmod +x /usr/bin/aggregate
-mv /home/VB-firewall /usr/bin/
+mv /usr/src/vicidial-install-scripts/VB-firewall /usr/bin/
 chmod +x /usr/bin/VB-firewall
-
-
-## mv -f /root/defaults.inc.php /var/www/vhosts/dynportal/inc/defaults.inc.php
-## mv -f /home/viciportal-ssl.conf /etc/httpd/conf.d/viciportal-ssl.conf
 
 firewall-offline-cmd --add-port=446/tcp --zone=public
 
