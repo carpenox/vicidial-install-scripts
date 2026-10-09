@@ -243,8 +243,8 @@ wget https://dialer.one/newt.h
 cd /usr/src/
 mkdir dahdi-linux-complete-3.4.0+3.4.0
 cd dahdi-linux-complete-3.4.0+3.4.0
-wget https://cybur-dial.com/downloads/dahdi-9.8.zip
-unzip dahdi-9.8.zip
+wget https://github.com/carpenox/vicidial-install-scripts/blob/main/dahdi9.8.tar.xz
+tar -xvf dahdi9.8.tar.xz
 yum in newt* -y
 
 
