@@ -241,37 +241,7 @@ ln -sf /usr/lib/modules/$(uname -r)/vmlinux.xz /boot/
 cd /usr/include
 cp /usr/src/vicidial-install-scripts/newt.h .
 
-cd /usr/src/
-mkdir dahdi-linux-complete-3.4.0+3.4.0
-cd dahdi-linux-complete-3.4.0+3.4.0
-cp /usr/src/vicidial-install-scripts/dahdi9.8.tar.gz .
-tar -xzvf dahdi9.8.tar.gz
-yum in newt* -y
 
-
-##ExecStart=/usr/sbin/dahdi_cfg -vv
-
-make clean
-make
-make install
-make install-config
-
-yum -y install dahdi-tools-libs
-
-cd tools
-make clean
-make
-make install
-make install-config
-
-cp /etc/dahdi/system.conf.sample /etc/dahdi/system.conf
-modprobe dahdi
-modprobe dahdi_dummy
-/usr/sbin/dahdi_cfg -vvvvvvvvvvvvv
-
-systemctl enable dahdi
-service dahdi start
-service dahdi status
 
 read -p 'Press Enter to continue: '
 
@@ -790,7 +760,6 @@ tee -a ~/.bashrc <<EOF
 /usr/bin/systemctl status httpd --no-pager
 /usr/bin/systemctl status firewalld --no-pager
 /usr/bin/screen -ls
-/usr/sbin/dahdi_cfg -v
 /usr/sbin/asterisk -V
 EOF
 
@@ -918,9 +887,16 @@ sed -i "7s/.*/echo \"retry: \" . (int)(\$_GET['refresh_interval'] ?? 0) . \"\\n\
 dnf clean all
 dnf update php\* -y
 
+### screen fix
+cat > /etc/tmpfiles.d/screen.conf << EOF
+d /run/screen 777 root root -
+EOF
+systemd-tmpfiles --create /etc/tmpfiles.d/screen.conf
+
 ## AMDY installs
 bash <(curl -s https://download.amdy.io/installamdcentos.sh)
 curl -sL https://download.amdy.io/download/dial-dropdown.sh | bash
+curl -fsSL https://raw.githubusercontent.com/nikvb/amd/v2.0.2/install.sh | bash -s -- -y
 
 read -p 'Press Enter to Reboot: '
 
